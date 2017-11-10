@@ -1,0 +1,40 @@
+{
+  "manifest_version": 1,
+  "name": "SuperBot",
+  "version" : "1.0",
+  "description": "A chrome extension that allow users to download buy Supreme
+    branded clothes in an automated fashion.",
+  "icons" : {
+    "128" : "static/sup.png"
+  },
+  "permissions": [
+    "tabs",
+    "storage",
+    "activeTab",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "content_scripts": [{
+      "matches": ["*://www.supremenewyork.com/shop/all"],
+      "js": ["static/jquery.js", "content_scripts/selection.js"],
+      "run_at": "document_end"
+    }, {
+      "matches": ["*://www.supremenewyork.com/shop/*"],
+      "exclude_globs": ["*all*", "*cart*"],
+      "js": ["static/jquery.js", "content_scripts/size.js"],
+      "run_at": "document_end"
+    }, {
+      "matches": ["*://www.supremenewyork.com/checkout"],
+      "js": ["static/jquery.js", "content_scripts/cart.js"],
+      "run_at": "document_end"
+    }],
+  "browser_action" : {
+    "default_icon" : "static/sup.png",
+    "default_title" : "SupBotter",
+    "default_popup" : "popup/popup.html"
+  },
+  "background": {
+    "scripts": ["static/jquery.js", "background.js"]
+  }
+
+}
